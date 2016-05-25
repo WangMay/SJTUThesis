@@ -18,7 +18,9 @@
 \DeclareOption{submit}{\sjtu@submittrue}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions\relax
-\LoadClass[a4paper,UTF8,scheme=chinese]{ctexbook}
+%\LoadClass[a4paper,UTF8]{ctexbook}
+%\LoadClass[a4paper,UTF8,scheme=chinese]{ctexbook}
+\LoadClass[a4paper,UTF8]{ctexbook}
 \ifsjtu@bachelor\relax\else
   \ifsjtu@master\relax\else
     \ifsjtu@doctor\relax\else
@@ -27,6 +29,11 @@
     \fi
   \fi
 \fi
+
+\usepackage{titlesec}
+%\usepackage{titletoc}
+%\renewcommand\thechapter{\Roman{chapter}}
+%\ctexsetup[name={,}, number=\arabic{chapter}]{chapter}
 
 %% sjtuthesis.cls segments
 % 0. Import sjtuthesis.cfg
@@ -120,7 +127,7 @@
 \setmainfont{TeX Gyre Termes}
 
 %% 行距缩放因子
-\linespread{1.3}
+\linespread{1.5}
 
 %% CTeX Settings
 % 名称：目录、表格索引、插图索引、算法、算法索引、代码
@@ -131,13 +138,19 @@
 \renewcommand{\listalgorithmname}{\sjtu@listalgorithmname}
 \renewcommand{\lstlistingname}{\sjtu@value@listingname}
 % Title Settings at the chapter Level
-\ctexset{chapter={
-	nameformat={\Large\bfseries},
-	titleformat={\Large\bfseries},
-	beforeskip={15\p@},
-	afterskip={12\p@},
-	}
-}
+
+%% change the chapter index to Chapter number
+%\usepackage{titlesec}
+\titleformat{\chapter}{\centering\Large\bfseries}{Chapter\,\thechapter\,}{1em}{}
+
+%\ctexset{chapter={
+	%nameformat={\Large\bfseries},
+	%titleformat={\Large\bfseries},
+ % format={\centering \Large \bfseries},
+%	beforeskip={15\p@},
+%	afterskip={12\p@},
+%	}
+%}
 % Title Settings at the section Level
 \ctexset{section={
 	format={\large\bfseries},
@@ -158,6 +171,9 @@
 	afterskip={1.0ex \@plus .2ex},
 	}
 }
+
+\CTEXsetup[number={Chapter~\thechapter }]{chapter}
+\CTEXsetup[name={,}]{chapter}                             %将一级标题设为一、
 
 % bullets in the item
 \renewcommand{\labelitemi}{\ensuremath{\bullet}}
@@ -287,7 +303,8 @@
 \newcommand\confidential[1]{\def\sjtu@value@confidential{#1}}
 \newcommand\school[1]{\def\sjtu@value@school{#1}}
 \newcommand\chinesedegree[1]{\def\sjtu@value@chinesedegree{#1}}
-\renewcommand\title[2][\sjtu@value@title]{%
+%\renewcommand\title[2][\sjtu@value@title]{%
+\renewcommand\title[2][\sjtu@value@englishtitle]{%
   \def\sjtu@value@title{#2}
   \def\sjtu@value@titlemark{\MakeUppercase{#1}}}
 \renewcommand\author[1]{\def\sjtu@value@author{#1}}
@@ -422,7 +439,7 @@
 	  \fancyhf{}
 	  \fancyhead[L]{\includegraphics[width=0.22\textwidth]{figure/sjtubanner}}
 	  \fancyhead[R]{\nouppercase{\small\kaishu\sjtu@value@titlemark}}
-	  \fancyfoot[C]{\small 第~{\bfseries\thepage}~页\,共~{\bfseries\pageref{LastPage}}~页}
+	  \fancyfoot[C]{\small {\bfseries\thepage}/{\bfseries\pageref{LastPage}}}
 	  \renewcommand{\headheight}{32pt}
 	}
 	%% 开章页页眉页脚
@@ -430,7 +447,7 @@
 	  \fancyhf{}%
 	  \fancyhead[L]{\nouppercase{\small\kaishu\includegraphics[width=0.22\textwidth]{figure/sjtubanner}}}
 	  \fancyhead[R]{\nouppercase{\small\kaishu\sjtu@value@titlemark}}
-	  \fancyfoot[C]{\small 第~{\bf\thepage}~页\,共~{\bf\pageref{LastPage}}~页}
+	  \fancyfoot[C]{\small {\bf\thepage}/{\bf\pageref{LastPage}}}
 	  \renewcommand{\headheight}{32pt}
 	}
 \else
